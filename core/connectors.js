@@ -485,6 +485,13 @@ define(function() {
 		},
 
 		{
+			label: 'Samsung Milk',
+			matches: ['*://milk.samsung.com/*'],
+			js: ['connectors/v2/samsungmilk.js'],
+			version: 2
+		},
+
+		{
 			label: 'Jolicloud',
 			matches: ['*://drive.jolicloud.com/*'],
 			js: ['connectors/v2/jolicloud.js'],
