@@ -310,7 +310,8 @@ define(function() {
 		{
 			label: 'Rdio',
 			matches: ['*://www.rdio.com/*'],
-			js: ['connectors/rdio.js']
+			js: ['connectors/v2/rdio.js'],
+			version: 2
 		},
 
 		{
