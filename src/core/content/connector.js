@@ -3,44 +3,44 @@
 /* globals MetadataFilter, TestReporter, Util */
 
 /**
- * Connector base object.
+ * Base connector object.
  *
- * Handles all communication with the extension background script
- * and provides some convenient methods for parsing song data from the document.
+ * Provides properties and functions allow to get
+ * track info from a website.
  *
  * @constructor
  */
 function BaseConnector() {
 	/**
-	 * Selector of an element containing artist name. The containing string will
-	 * be filtered in the background script, if needed.
+	 * Selector of an element containing artist name.
 	 *
 	 * Only applies when default implementation of
 	 * {@link BaseConnector#getArtist} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.artistSelector = null;
 
 	/**
-	 * Selector of an element containing track name. The containing string will
-	 * be filtered in the background script, if needed.
+	 * Selector of an element containing track name.
 	 *
 	 * Only applies when default implementation of
 	 * {@link BaseConnector#getTrack} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.trackSelector = null;
 
 	/**
-	 * Selector of an element containing album name. The containing string will
-	 * be filtered in the background script, if needed.
+	 * Selector of an element containing album name.
 	 *
 	 * Only applies when default implementation of
 	 * {@link BaseConnector#getAlbum} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.albumSelector = null;
 
@@ -51,6 +51,7 @@ function BaseConnector() {
 	 * {@link BaseConnector#getCurrentTime} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.currentTimeSelector = null;
 
@@ -61,6 +62,7 @@ function BaseConnector() {
 	 * {@link BaseConnector#getRemainingTime} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.remainingTimeSelector = null;
 
@@ -71,6 +73,7 @@ function BaseConnector() {
 	 * {@link BaseConnector#getDuration} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.durationSelector = null;
 
@@ -83,6 +86,7 @@ function BaseConnector() {
 	 * Only applies when default implementation of {@link BaseConnector#getTimeInfo} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.timeInfoSelector = null;
 
@@ -93,13 +97,11 @@ function BaseConnector() {
 	 * and {@link BaseConnector#artistTrackSelector} is used only if any of
 	 * the previous returns empty result.
 	 *
-	 * The containing string will be filtered in the background script,
-	 * if needed.
-	 *
 	 * Only applies when default implementation of
 	 * {@link BaseConnector#getArtistTrack} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.artistTrackSelector = null;
 
@@ -107,12 +109,29 @@ function BaseConnector() {
 	 * Selector of a play button element. If the element is not visible,
 	 * the playback is considered to be playing.
 	 *
+	 * Should not be used if Connector#pauseButtonSelector is defined.
+	 *
 	 * Only applies when default implementation of
 	 * {@link BaseConnector#isPlaying} is used.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.playButtonSelector = null;
+
+	/**
+	 * Selector of a pause button element. If the element is visible,
+	 * the playback is considered to be playing.
+	 *
+	 * Should not be used if Connector#playButtonSelector is defined.
+	 *
+	 * Only applies when default implementation of
+	 * {@link BaseConnector#isPlaying} is used.
+	 *
+	 * @type {String}
+	 * @type {Array}
+	 */
+	this.pauseButtonSelector = null;
 
 	/**
 	 * Selector of a container closest to the player. Changes on this element
@@ -135,6 +154,7 @@ function BaseConnector() {
 	 * If not specified will fall back to Last.fm API.
 	 *
 	 * @type {String}
+	 * @type {Array}
 	 */
 	this.trackArtSelector = null;
 
@@ -145,7 +165,7 @@ function BaseConnector() {
 	 *
 	 * @return {String} Song artist
 	 */
-	this.getArtist = () => $(this.artistSelector).text();
+	this.getArtist = () => Util.getTextFromSelectors(this.artistSelector);
 
 	/**
 	 * Default implementation of track name lookup by selector.
@@ -154,7 +174,7 @@ function BaseConnector() {
 	 *
 	 * @return {String} Song title
 	 */
-	this.getTrack = () => $(this.trackSelector).text();
+	this.getTrack = () => Util.getTextFromSelectors(this.trackSelector);
 
 	/**
 	 * Default implementation of album name lookup by selector.
@@ -163,7 +183,7 @@ function BaseConnector() {
 	 *
 	 * @return {String} Song album
 	 */
-	this.getAlbum = () => $(this.albumSelector).text();
+	this.getAlbum = () => Util.getTextFromSelectors(this.albumSelector);
 
 	/**
 	 * Default implementation of track duration lookup. If this method returns
@@ -175,8 +195,9 @@ function BaseConnector() {
 	 * @return {Number} Track length in seconds
 	 */
 	this.getDuration = () => {
-		let text = $(this.durationSelector).text();
-		return Util.stringToSeconds(text);
+		return Util.stringToSeconds(
+			Util.getTextFromSelectors(this.durationSelector)
+		);
 	};
 
 	/**
@@ -188,8 +209,9 @@ function BaseConnector() {
 	 * @return {Number} Number of seconds passed from the beginning of the track
 	 */
 	this.getCurrentTime = () => {
-		let text = $(this.currentTimeSelector).text();
-		return Util.stringToSeconds(text);
+		return Util.stringToSeconds(
+			Util.getTextFromSelectors(this.currentTimeSelector)
+		);
 	};
 
 	/**
@@ -201,8 +223,9 @@ function BaseConnector() {
 	 * @return {Number} Number of remaining seconds
 	 */
 	this.getRemainingTime = () => {
-		let text = $(this.remainingTimeSelector).text();
-		return Util.stringToSeconds(text);
+		return Util.stringToSeconds(
+			Util.getTextFromSelectors(this.remainingTimeSelector)
+		);
 	};
 
 	/**
@@ -215,8 +238,9 @@ function BaseConnector() {
 	 * @return {Object} Object contains current time and duration info
 	 */
 	this.getTimeInfo = () => {
-		let text = $(this.timeInfoSelector).text();
-		return Util.splitTimeInfo(text);
+		return Util.splitTimeInfo(
+			Util.getTextFromSelectors(this.timeInfoSelector)
+		);
 	};
 
 	/**
@@ -229,8 +253,9 @@ function BaseConnector() {
 	 * @return {Object} Object contain artist and track information
 	 */
 	this.getArtistTrack = () => {
-		let text = $(this.artistTrackSelector).text();
-		return Util.splitArtistTrack(text);
+		return Util.splitArtistTrack(
+			Util.getTextFromSelectors(this.artistTrackSelector)
+		);
 	};
 
 	/**
@@ -254,16 +279,35 @@ function BaseConnector() {
 	 * Default implementation of check for active playback by play button
 	 * selector. The state of playback allows the core to detect pauses.
 	 *
-	 * Returns TRUE as default when button selector is not specified. It's
-	 * better to assume the playback is always playing than otherwise. :)
-	 *
 	 * Override this method for custom behaviour.
 	 *
 	 * @return {Boolean} True if song is now playing; false otherwise
 	 */
 	this.isPlaying = () => {
-		return this.playButtonSelector === null ||
-			!$(this.playButtonSelector).is(':visible');
+		if (this.playButtonSelector) {
+			const playButton = Util.queryElements(this.playButtonSelector);
+			if (playButton) {
+				return !playButton.is(':visible');
+			}
+
+			return false;
+		}
+
+		if (this.pauseButtonSelector) {
+			const pauseButton = Util.queryElements(this.pauseButtonSelector);
+			if (pauseButton) {
+				return pauseButton.is(':visible');
+			}
+
+			return false;
+		}
+
+		/*
+		 * Return true if play/pause button selector is not specified. It's
+		 * better to assume the playback is always playing than otherwise. :)
+		 */
+
+		return true;
 	};
 
 	/**
@@ -318,15 +362,16 @@ function BaseConnector() {
 	 * @return {String} Track art URL
 	 */
 	this.getTrackArt = () => {
-		if (!this.trackArtSelector) {
+		const element = Util.queryElements(this.trackArtSelector);
+		if (!element) {
 			return null;
 		}
 
-		let trackArtUrl = $(this.trackArtSelector).attr('src');
+		let trackArtUrl = element.attr('src');
 		if (!trackArtUrl) {
 			let cssProperties = ['background-image', 'background'];
 			for (let property of cssProperties) {
-				let propertyValue = $(this.trackArtSelector).css(property);
+				let propertyValue = element.css(property);
 				if (propertyValue) {
 					trackArtUrl = Util.extractUrlFromCssProperty(propertyValue);
 				}
