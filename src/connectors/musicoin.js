@@ -1,12 +1,8 @@
 'use strict';
 
-Connector.getArtist = () => {
-	return getIframeElement('#player-artist').first().text();
-};
+Connector.artistSelector = '#player-artist';
 
-Connector.getTrack = () => {
-	return getIframeElement('#player-title').first().text();
-};
+Connector.trackSelector = '#player-title';
 
 Connector.getDuration = () => {
 	const duration = getIframeElement('#player-time-left').text();
