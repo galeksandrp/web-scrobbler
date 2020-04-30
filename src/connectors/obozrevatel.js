@@ -27,7 +27,7 @@ function isMusicPlayer() {
 function setupNewMusicPlayer() {
 	Connector.playerSelector = '#file_0';
 
-	Connector.isPlaying = () => $('#file_0').hasClass('jp-state-playing');
+	Connector.isPlaying = () => Util.hasElementClass('#file_0', 'jp-state-playing');
 
 	Connector.artistSelector = '#file_0 .name a:first';
 
@@ -60,7 +60,7 @@ function setupRadioPlayer() {
 
 	Connector.artistTrackSelector = '.cur-blk .name';
 
-	Connector.isPlaying = () => $('.cur-blk #play').hasClass('pause');
+	Connector.isPlaying = () => Util.hasElementClass('.cur-blk #play', 'pause');
 
 	Connector.durationSelector = '.cur-blk .total-time';
 }

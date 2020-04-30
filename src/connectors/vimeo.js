@@ -17,7 +17,7 @@ Connector.getDuration = () => {
 Connector.getUniqueID = () => $('.player').attr('id');
 
 Connector.isPlaying = () => {
-	return $('.play').hasClass('state-playing');
+	return Util.hasElementClass('.play', 'state-playing');
 };
 
 Connector.applyFilter(MetadataFilter.getYoutubeFilter());

@@ -35,7 +35,7 @@ Connector.getDuration = () => {
 };
 
 Connector.isPlaying = () => {
-	return $('#playerWidgetPause').hasClass('fa-pause');
+	return Util.hasElementClass('#playerWidgetPause', 'fa-pause');
 };
 
 Connector.isScrobblingAllowed = () => {

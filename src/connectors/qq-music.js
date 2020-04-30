@@ -13,7 +13,7 @@ Connector.getUniqueID = () => {
 
 Connector.albumSelector = '#album_name a';
 
-Connector.isPlaying = () => $('#btnplay').hasClass('btn_big_play--pause');
+Connector.isPlaying = () => Util.hasElementClass('#btnplay', 'btn_big_play--pause');
 
 Connector.timeInfoSelector = '#time_show';
 

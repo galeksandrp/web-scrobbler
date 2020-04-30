@@ -21,7 +21,7 @@ function setupCommonProperties() {
 
 	Connector.currentTimeSelector = '#wp_playTime';
 
-	Connector.isPlaying = () => $('#wp_playBtn').hasClass('zan');
+	Connector.isPlaying = () => Util.hasElementClass('#wp_playBtn', 'zan');
 }
 
 function isDefaultPlayer() {

@@ -36,7 +36,7 @@ Connector.isPlaying = () => {
 	if (Util.isArtistTrackEmpty(songInfo)) {
 		return false;
 	}
-	return $('#controls #play').hasClass('hide');
+	return Util.hasElementClass('#controls #play', 'hide');
 };
 
 /**

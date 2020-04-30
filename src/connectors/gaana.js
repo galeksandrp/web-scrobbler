@@ -26,7 +26,7 @@ Connector.isPlaying = () => {
 		return false;
 	}
 
-	return $('.playPause ').hasClass('pause');
+	return Util.hasElementClass('.playPause ', 'pause');
 };
 
 /**

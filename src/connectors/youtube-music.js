@@ -1,12 +1,17 @@
 'use strict';
 
 const channelNameSelector = 'ytmusic-player-queue-item[selected] .byline';
+const playButtonSelector = '.ytmusic-player-bar.play-pause-button #icon > svg > g > path';
+const trackArtSelector = '.ytmusic-player-bar.image';
 const trackSelector = 'ytmusic-player-queue-item[selected] .song-title';
+const adSelector = '.ytmusic-player-bar.advertisement';
+
+const playingPath = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
 
 Connector.playerSelector = 'ytmusic-player-bar';
 
 Connector.getTrackArt = () => {
-	const trackArtUrl = $('.ytmusic-player-bar.image').attr('src');
+	const trackArtUrl = Util.extractImageUrlFromSelectors(trackArtSelector);
 	if (trackArtUrl) {
 		return trackArtUrl.substring(0, trackArtUrl.lastIndexOf('='));
 	}
@@ -29,10 +34,9 @@ Connector.albumSelector = '.ytmusic-player-bar .yt-formatted-string.style-scope.
 Connector.timeInfoSelector = '.ytmusic-player-bar.time-info';
 
 Connector.isPlaying = () => {
-	const playingPath = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
-	return $('.ytmusic-player-bar.play-pause-button #icon > svg > g > path').attr('d') === playingPath;
+	return Util.getAttrFromSelectors(playButtonSelector, 'd') === playingPath;
 };
 
-Connector.isScrobblingAllowed = () => $('.ytmusic-player-bar.advertisement').is(':hidden');
+Connector.isScrobblingAllowed = () => !Util.isElementVisible(adSelector);
 
 Connector.applyFilter(MetadataFilter.getYoutubeFilter());

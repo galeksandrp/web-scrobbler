@@ -1,6 +1,6 @@
 'use strict';
 
-const version = $('body').hasClass('navia') ? 'new' : 'legacy';
+const version = Util.hasElementClass('body', 'navia') ? 'new' : 'legacy';
 switch (version) {
 	case 'new':
 		bindNew();

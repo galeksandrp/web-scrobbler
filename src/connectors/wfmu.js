@@ -12,7 +12,7 @@ function setupAudioPlayer() {
 
 	Connector.trackSelector = '#current-title';
 
-	Connector.isPlaying = () => $('.mejs-playpause-button').hasClass('mejs-pause');
+	Connector.isPlaying = () => Util.hasElementClass('.mejs-playpause-button', 'mejs-pause');
 
 	Connector.applyFilter(filter);
 }
@@ -28,7 +28,7 @@ function setupArchivePlayer() {
 
 	Connector.trackSelector = '#np-song';
 
-	Connector.isPlaying = () => $('.mejs-playpause-button').hasClass('mejs-pause');
+	Connector.isPlaying = () => Util.hasElementClass('.mejs-playpause-button', 'mejs-pause');
 
 	Connector.applyFilter(filter);
 }
@@ -44,11 +44,11 @@ function cleanupArtist(artist) {
 }
 
 function isAudioPlayer() {
-	return $('body').hasClass('audioplayer');
+	return Util.hasElementClass('body', 'audioplayer');
 }
 
 function isArchivePlayer() {
-	return $('body').hasClass('archiveplayer');
+	return Util.hasElementClass('body', 'archiveplayer');
 }
 
 function setupConnector() {

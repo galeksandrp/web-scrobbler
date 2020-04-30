@@ -12,4 +12,4 @@ Connector.durationSelector = '#duration';
 
 Connector.trackArtSelector = '#artwork img';
 
-Connector.isPlaying = () => $('.playtoggle').hasClass('pause');
+Connector.isPlaying = () => Util.hasElementClass('.playtoggle', 'pause');

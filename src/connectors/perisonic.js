@@ -6,6 +6,6 @@ Connector.trackSelector = '#title p';
 
 Connector.trackArtSelector = '#coverart img';
 
-Connector.isPlaying = () => $('#playpause').hasClass('pause');
+Connector.isPlaying = () => Util.hasElementClass('#playpause', 'pause');
 
 $('#title').bind('DOMSubtreeModified', Connector.onStateChanged);

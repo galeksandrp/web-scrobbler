@@ -29,7 +29,7 @@ function setupConnector() {
 	Connector.getDuration = () => videoElement.prop('duration');
 
 	Connector.isPlaying = () => {
-		return $('.html5-video-player').hasClass('playing-mode');
+		return Util.hasElementClass('.html5-video-player', 'playing-mode');
 	};
 
 	Connector.getUniqueID = () => {

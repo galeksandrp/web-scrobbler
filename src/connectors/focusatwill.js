@@ -15,7 +15,7 @@ Connector.artistSelector = `${trackInfoSelector} > div:nth-child(2)`;
 Connector.trackSelector = `${trackInfoSelector} > div:nth-child(1)`;
 
 Connector.isPlaying = () => {
-	return !$('[data-test-id="playButton"]').hasClass('undefined');
+	return !Util.hasElementClass('[data-test-id="playButton"]', 'undefined');
 };
 
 Connector.isStateChangeAllowed = () => {
