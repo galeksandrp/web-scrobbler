@@ -86,7 +86,7 @@ const Util = {
 	/**
 	 * Join array of artist name into a string. The array must contain objects
 	 * that have 'textContent' property (DOM node).
-	 * @param  {Array} artists Array of DOM nodes
+	 * @param  {NodeList} artists List of DOM nodes
 	 * @return {String} String joined by separator
 	 */
 	joinArtists(artists) {
@@ -94,7 +94,7 @@ const Util = {
 			return null;
 		}
 
-		return artists.map((artist) => {
+		return Array.from(artists).map((artist) => {
 			return artist.textContent;
 		}).join(this.ARTIST_SEPARATOR);
 	},
@@ -309,11 +309,11 @@ const Util = {
 
 		if (elements) {
 			if (elements.length === 1) {
-				return elements.text();
+				return elements[0].textContent;
 			}
 
 			for (const element of elements) {
-				const text = $(element).text();
+				const text = element.textContent;
 				if (text) {
 					return text;
 				}
@@ -344,16 +344,16 @@ const Util = {
 	 */
 	/* istanbul ignore next */
 	extractImageUrlFromSelectors(selectors) {
-		const element = Util.queryElements(selectors);
+		const element = Util.queryElement(selectors);
 		if (!element) {
 			return null;
 		}
 
-		let trackArtUrl = element.attr('src');
+		let trackArtUrl = element.getAttribute('src');
 		if (!trackArtUrl) {
 			const cssProperties = ['background-image', 'background'];
 			for (const property of cssProperties) {
-				const propertyValue = element.css(property);
+				const propertyValue = getComputedStyle(element)[property];
 				if (propertyValue) {
 					trackArtUrl = this.extractUrlFromCssProperty(propertyValue);
 				}
@@ -364,11 +364,13 @@ const Util = {
 	},
 
 	/**
-	 * Return jQuery object of first available element. If `selectors`
-	 * is a string, return jQuery object with the selector. If `selectors` is
-	 * an array, return jQuery object matched by first valid selector.
+	 * Return an array of nodes matching by a given selectors. The `selectors`
+	 * argument can be either a string, or an array of strings. If an array of
+	 * strings is passed, the function will return an array of nodes queried
+	 * using a first valid selector.
+	 *
 	 * @param  {Object} selectors Single selector or array of selectors
-	 * @return {Object} jQuery object
+	 * @return {Array} Array of nodes
 	 */
 	/* istanbul ignore next */
 	queryElements(selectors) {
@@ -377,7 +379,7 @@ const Util = {
 		}
 
 		if (typeof selectors === 'string') {
-			return $(selectors);
+			return document.querySelectorAll(selectors);
 		}
 
 		if (!Array.isArray(selectors)) {
@@ -385,8 +387,41 @@ const Util = {
 		}
 
 		for (const selector of selectors) {
-			const element = $(selector);
-			if (element.length > 0) {
+			const elements = document.querySelectorAll(selector);
+			if (elements && elements.length > 0) {
+				return elements;
+			}
+		}
+
+		return null;
+	},
+
+	/**
+	 * Return a node matching by a given selectors. The `selectors` argument
+	 * can be either a string, or an array of strings. If an array of strings
+	 * is passed, the function will return a nods queried using a first
+	 * valid selector.
+	 *
+	 * @param  {Object} selectors Single selector or array of selectors
+	 * @return {Node} Node
+	 */
+	/* istanbul ignore next */
+	queryElement(selectors) {
+		if (!selectors) {
+			return null;
+		}
+
+		if (typeof selectors === 'string') {
+			return document.querySelector(selectors);
+		}
+
+		if (!Array.isArray(selectors)) {
+			throw new Error(`Unknown type of selector: ${typeof selectors}`);
+		}
+
+		for (const selector of selectors) {
+			const element = document.querySelector(selector);
+			if (element) {
 				return element;
 			}
 		}
