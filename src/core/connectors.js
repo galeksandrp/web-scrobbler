@@ -168,13 +168,6 @@ const connectors = [{
 	js: 'connectors/hillydilly.js',
 	id: 'hillydilly',
 }, {
-	label: 'Groove Music',
-	matches: [
-		'*://music.microsoft.com/*'
-	],
-	js: 'connectors/groovemusic.js',
-	id: 'groovemusic',
-}, {
 	label: '8tracks',
 	matches: [
 		'*://8tracks.com/*'
@@ -480,13 +473,6 @@ const connectors = [{
 	js: 'connectors/jamendo.js',
 	id: 'jamendo',
 }, {
-	label: 'Whyd',
-	matches: [
-		'*://whyd.com/*'
-	],
-	js: 'connectors/whyd.js',
-	id: 'whyd',
-}, {
 	label: 'Bandzone.cz',
 	matches: [
 		'*://bandzone.cz/*'
@@ -560,14 +546,6 @@ const connectors = [{
 	],
 	js: 'connectors/redditmusicplayer.js',
 	id: 'redditmusicplayer',
-}, {
-	label: 'KOLLEKT.FM',
-	matches: [
-		'*://kollekt.fm/*',
-		'*://*.kollekt.fm/*'
-	],
-	js: 'connectors/kollekt.fm.js',
-	id: 'kollekt.fm',
 }, {
 	label: 'Новое Радио',
 	matches: [
@@ -653,20 +631,6 @@ const connectors = [{
 	js: 'connectors/sonerezh.js',
 	id: 'sonerezh',
 }, {
-	label: 'Evropa 2',
-	matches: [
-		'*://onair.evropa2.cz/*'
-	],
-	js: 'connectors/evropa2.js',
-	id: 'evropa2',
-}, {
-	label: 'Frekvence 1',
-	matches: [
-		'*://vysilani.frekvence1.cz/*'
-	],
-	js: 'connectors/frekvence1.js',
-	id: 'frekvence1',
-}, {
 	label: 'Youradio',
 	matches: [
 		'*://www.youradio.cz/*'
@@ -674,33 +638,12 @@ const connectors = [{
 	js: 'connectors/youradio.js',
 	id: 'youradio',
 }, {
-	label: 'Dance radio',
-	matches: [
-		'*://www.danceradio.cz/*'
-	],
-	js: 'connectors/danceradio.js',
-	id: 'danceradio',
-}, {
-	label: 'Rádio Bonton',
-	matches: [
-		'*://www.radiobonton.cz/*'
-	],
-	js: 'connectors/radiobonton.js',
-	id: 'radiobonton',
-}, {
 	label: 'GPMusic',
 	matches: [
 		'*://player.gpmusic.co/*'
 	],
 	js: 'connectors/gpmusic.js',
 	id: 'gpmusic',
-}, {
-	label: 'Youtube Jukebox',
-	matches: [
-		'*://youtube.nestharion.de/*'
-	],
-	js: 'connectors/yt-jukebox.js',
-	id: 'yt-jukebox',
 }, {
 	label: 'Nightwave Plaza',
 	matches: [
@@ -757,13 +700,6 @@ const connectors = [{
 	],
 	js: 'connectors/pinguinradio.js',
 	id: 'pinguinradio',
-}, {
-	label: 'Vevo',
-	matches: [
-		'*://www.vevo.com/*'
-	],
-	js: 'connectors/vevo.js',
-	id: 'vevo',
 }, {
 	label: 'JioSaavn',
 	matches: [
@@ -951,27 +887,12 @@ const connectors = [{
 	js: 'connectors/qq-video.js',
 	id: 'qq-video',
 }, {
-	label: 'Youtubify',
-	matches: [
-		'*://youtubify.vebto.com/*',
-		'*://bemusic.vebto.com/*'
-	],
-	js: 'connectors/bemusic.js',
-	id: 'youtubify',
-}, {
 	label: 'Naver',
 	matches: [
 		'*://playerui.music.naver.com/*'
 	],
 	js: 'connectors/naver.js',
 	id: 'naver',
-}, {
-	label: 'olleh',
-	matches: [
-		'*://www.ollehmusic.com/*'
-	],
-	js: 'connectors/olleh.js',
-	id: 'olleh',
 }, {
 	label: 'Soribada',
 	matches: [
@@ -986,20 +907,6 @@ const connectors = [{
 	],
 	js: 'connectors/music-flo.js',
 	id: 'music-flo',
-}, {
-	label: 'GrooveMP3',
-	matches: [
-		'*://*.groovemp3.com/*'
-	],
-	js: 'connectors/bemusic.js',
-	id: 'groovemp3',
-}, {
-	label: 'ytmp3',
-	matches: [
-		'*://www.ytmp3.fun/*'
-	],
-	js: 'connectors/bemusic.js',
-	id: 'ytmp3',
 }, {
 	label: 'Discogs',
 	matches: [
