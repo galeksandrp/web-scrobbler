@@ -380,7 +380,7 @@ const Util = {
 			return null;
 		}
 
-		let trackArtUrl = element.getAttribute('src');
+		let trackArtUrl = element.src;
 		if (!trackArtUrl) {
 			const cssProperties = ['background-image', 'background'];
 			for (const property of cssProperties) {
