@@ -167,7 +167,7 @@
         "message": "Поставьте или снимите галочку, чтобы включить или выключить коннекторы.",
         "description": "Enable/disable hint"
     },
-    "optionsCustomPatternsHint": {
+    "optionspatternsCustomPatternsHint": {
         "message": "Кликните на иконку с шестерёнкой, чтобы настроить пользовательские шаблоны URL для коннекторов.",
         "description": "Description of how to configure custom URL patterns"
     },
@@ -311,11 +311,11 @@
         "message": "Расширение бесплатно, и всегда будет бесплатным. Если вы хотите поддержать разработку расширения, вы можете воспользоваться кнопкой ниже.",
         "description": ""
     },
-    "customPatternsHint": {
+    "patternsCustomPatternsHint": {
         "message": "Добавьте необходимые шаблоны URL для коннектора.",
         "description": "Popup hint"
     },
-    "customPatternsAdd": {
+    "buttonAdd": {
         "message": "Добавить шаблон",
         "description": "Add button"
     },

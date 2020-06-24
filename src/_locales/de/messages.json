@@ -127,7 +127,7 @@
         "message": "Klick auf den Kontrollkasten um Verbinder zu aktivieren/deaktivieren.",
         "description": "Enable/disable hint"
     },
-    "optionsCustomPatternsHint": {
+    "optionspatternsCustomPatternsHint": {
         "message": "Klick auf das Zahnradsymbol um benutzerdefinierte URL-Muster für die Verbinder zu konfigurieren. <a target='_blank' href='https://github.com/web-scrobbler/web-scrobbler/wiki/Custom-URL-patterns'>Mehr erfahren</a>",
         "description": "Description of how to configure custom URL patterns"
     },
@@ -263,11 +263,11 @@
         "message": "Anders als andere Erweiterungen enthält diese keine blinkenden Banner oder hinterhältige Werbung.",
         "description": ""
     },
-    "customPatternsHint": {
+    "patternsCustomPatternsHint": {
         "message": "Füge URL-Muster, für die der Verbinder gelten soll unten ein.",
         "description": "Popup hint"
     },
-    "customPatternsAdd": {
+    "buttonAdd": {
         "message": "Muster hinzufügen",
         "description": "Add button"
     },

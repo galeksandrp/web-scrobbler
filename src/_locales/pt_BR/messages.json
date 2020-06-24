@@ -143,7 +143,7 @@
         "message": "Clique nas caixas para ativar/desativar conectores.",
         "description": "Enable/disable hint"
     },
-    "optionsCustomPatternsHint": {
+    "optionspatternsCustomPatternsHint": {
         "message": "Clique no ícone de engrenagem para configurar padrões personalizados de URL para conectores.",
         "description": "Description of how to configure custom URL patterns"
     },
@@ -287,11 +287,11 @@
         "message": "A extensão é gratuita, e sempre será. Mas, caso queira apoiar o desenvolvimento, sinta-se à vontade para usar o botão abaixo.",
         "description": ""
     },
-    "customPatternsHint": {
+    "patternsCustomPatternsHint": {
         "message": "Adicione padrões de URL que o conector deva corresponder abaixo.",
         "description": "Popup hint"
     },
-    "customPatternsAdd": {
+    "buttonAdd": {
         "message": "Adicionar padrão",
         "description": "Add button"
     },

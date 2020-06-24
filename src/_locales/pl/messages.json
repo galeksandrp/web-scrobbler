@@ -167,7 +167,7 @@
         "message": "Wybierz usługi do aktywacji/dezaktywacji.",
         "description": "Enable/disable hint"
     },
-    "optionsCustomPatternsHint": {
+    "optionspatternsCustomPatternsHint": {
         "message": "Wybierz ikonę zębatki, aby skonfigurować niestandardowe domeny dla wspieranych usług.",
         "description": "Description of how to configure custom URL patterns"
     },
@@ -311,11 +311,11 @@
         "message": "Rozszerzenie jest i pozostanie bezpłatne. Jeśli jednak chcesz wesprzeć jego dalszy rozwój, możesz skorzystać z poniższej opcji.",
         "description": ""
     },
-    "customPatternsHint": {
+    "patternsCustomPatternsHint": {
         "message": "Wprowadź poniżej wzorce adresów, dla których aktywowana ma być obsługa serwisu.",
         "description": "Popup hint"
     },
-    "customPatternsAdd": {
+    "buttonAdd": {
         "message": "Dodaj wzorzec",
         "description": "Add button"
     },

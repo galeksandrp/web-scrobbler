@@ -143,7 +143,7 @@
         "message": "Konektor povolíte/zakážete kliknutím na zaškrtávacie políčko.",
         "description": "Enable/disable hint"
     },
-    "optionsCustomPatternsHint": {
+    "optionspatternsCustomPatternsHint": {
         "message": "Vlastné URL vzory pre konektor si môžete nastaviť kliknutím na ikonku ozubeného kolieska.",
         "description": "Description of how to configure custom URL patterns"
     },
@@ -287,11 +287,11 @@
         "message": "Používanie doplnku je zadarmo, a vždy aj bude. Avšak, ak chcete podporiť vývoj doplnku, môžete použiť tlačidlo nižšie.",
         "description": ""
     },
-    "customPatternsHint": {
+    "patternsCustomPatternsHint": {
         "message": "URL vzory ktoré má konektor brať pridajte dolu.",
         "description": "Popup hint"
     },
-    "customPatternsAdd": {
+    "buttonAdd": {
         "message": "Pridať vzor",
         "description": "Add button"
     },
