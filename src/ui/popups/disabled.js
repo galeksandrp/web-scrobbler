@@ -3,6 +3,6 @@ import 'ui/base.css';
 
 import { createVueModel } from '@/ui/util';
 
-import GoPlayMusic from '@/ui/popups/go-play-music.vue';
+import Disabled from '@/ui/popups/disabled.vue';
 
-createVueModel(GoPlayMusic);
+createVueModel(Disabled);
