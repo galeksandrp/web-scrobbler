@@ -2,25 +2,16 @@
 
 /**
  * The extension uses `browser.runtime.sendMessage` function for communication
- * between different modules using the following message types:
- *
- * 1) events:
+ * between content scripts and the background script using the following message
+ * types:
  *  - EVENT_STATE_CHANGED: The connector state is changed
- *    @param  {Object} state Connector state
- *  - EVENT_SONG_UPDATED: The current song is updated
- *    @param  {Object} data Song instance copy
- *  - EVENT_READY: The connector is injected and the controller is created
- *  - EVENT_PING: The 'ping' event to check if connector is injected
+ *    @param {Object} state Connector state
  *
- * 2) requests:
- *  - REQUEST_GET_SONG: Get now playing song
- *    @return {Object} Song instance copy
- *  - REQUEST_CORRECT_SONG: Correct song info
- *    @param  {Object} data Object contains corrected song info
- *  - REQUEST_TOGGLE_LOVE: Toggle song love status
- *    @param  {Boolean} isLoved Flag indicates song is loved
- *  - REQUEST_RESET_SONG: Reset corrected song info
- *  - REQUEST_SKIP_SONG: Ignore (don't scrobble) current song
+ *  - EVENT_SONG_UPDATED: The current song is updated
+ *
+ *  - EVENT_READY: The connector is injected and the controller is created
+ *
+ *  - EVENT_PING: The 'ping' event to check if connector is injected
  */
 
 define((require) => {
@@ -117,6 +108,33 @@ define((require) => {
 		}
 
 		/**
+		 * Apply edited song info to a now playing song in the active tab.
+		 *
+		 * @param {Object} correctedData Object contains edited song info
+		 */
+		correctNowPlayingSong(correctedData) {
+			this.getActiveController().setUserSongData(correctedData);
+		}
+
+		/**
+		 * Return a label of a connector injected into the active tab.
+		 *
+		 * @return {String} Connector label
+		 */
+		getActiveConnectorLabel() {
+			return this.getActiveController().getConnector().label;
+		}
+
+		/**
+		 * Return a song instance from the active tab.
+		 *
+		 * @return {Object} Song instance
+		 */
+		getNowPlayingSong() {
+			return this.getActiveController().getCurrentSong();
+		}
+
+		/**
 		 * Return an instance of ScrobbleService. Must be used in UI context.
 		 *
 		 * @return {Object} ScrobbleService instance
@@ -125,15 +143,32 @@ define((require) => {
 			return ScrobbleService;
 		}
 
+		/**
+		 * Revert edited song info of a now playing song in the active tab..
+		 */
+		revertNowPlayingSong() {
+			this.getActiveController().resetSongData();
+		}
+
+		/**
+		 * Love or unlove a now playing in the active tab.
+		 *
+		 * @param {Boolean} isLoved Should song be loved or not
+		 */
+		setNowPlayingSongLoved(isLoved) {
+			this.getActiveController().toggleLove(isLoved);
+		}
+
+		/**
+		 * Skip a now playing song in the active tab.
+		 */
+		skipNowPlayingSong() {
+			this.getActiveController().skipCurrentSong();
+		}
+
 		/** Private functions. */
 
 		initializeListeners() {
-			browser.runtime.onMessage.addListener((request) => {
-				const { tabId, type, data } = request;
-
-				return this.tabWorker.processMessage(tabId, type, data);
-			});
-
 			try {
 				browser.commands.onCommand.addListener((command) => {
 					return this.tabWorker.processCommand(command);
@@ -266,7 +301,8 @@ define((require) => {
 						return;
 					}
 
-					Notifications.showNowPlaying(song, () => {
+					const { label } = ctrl.getConnector();
+					Notifications.showNowPlaying(song, label, () => {
 						openTab(ctrl.tabId);
 					});
 					break;
@@ -286,6 +322,15 @@ define((require) => {
 					break;
 				}
 			}
+		}
+
+		getActiveController() {
+			const controller = this.tabWorker.getActiveController();
+			if (controller) {
+				return controller;
+			}
+
+			throw new Error('No controller found for active tab!');
 		}
 	}
 

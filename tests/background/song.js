@@ -49,10 +49,6 @@ const PROCESSED_DATA = {
 	duration: 321,
 };
 
-const DUMMY_CONNECTOR = {
-	label: 'Dummy label',
-};
-
 /**
  * Create song object.
  * @param  {Object} parsedData Object contains custom parsed data values
@@ -65,7 +61,7 @@ function createSong(parsedData, processedData) {
 		parsedDataCopy[prop] = parsedData[prop] || defaultParsedData[prop];
 	}
 
-	const song = new Song(parsedDataCopy, DUMMY_CONNECTOR);
+	const song = new Song(parsedDataCopy);
 
 	if (processedData) {
 		for (const field in processedData) {
@@ -276,20 +272,6 @@ function testResetInfo() {
 	}
 }
 
-function testGetCloneableData() {
-	it('should return a copy of song', () => {
-		const song = createSong(PARSED_DATA, PROCESSED_DATA);
-
-		song.setLoveStatus(true);
-		song.flags.isCorrectedByUser = true;
-
-		const copy = song.getCloneableData();
-		for (const field of ['parsed', 'processed', 'flags', 'metadata']) {
-			expect(copy[field]).to.be.deep.equal(song[field]);
-		}
-	});
-}
-
 function testEquals() {
 	const songWithUniqueId = createSong({
 		artist: 'Artist', track: 'Title', album: 'Album',
@@ -427,7 +409,6 @@ function runTests() {
 	describe('getTrackArt', testGetTrackArt);
 	describe('getDuration', testGetDuration);
 	describe('setLoveStatus', testSetLoveStatus);
-	describe('getCloneableData', testGetCloneableData);
 	describe('getArtistTrackString', testGetArtistTrackString);
 }
 

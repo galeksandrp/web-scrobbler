@@ -8,9 +8,8 @@ define(() => {
 		/**
 		 * @constructor
 		 * @param {Object} parsedData Current state received from connector
-		 * @param {Object} connector Connector match object
 		 */
-		constructor(parsedData, connector) {
+		constructor(parsedData) {
 			/**
 			 * Safe copy of initial parsed data.
 			 * Must not be modified.
@@ -34,9 +33,27 @@ define(() => {
 			 */
 			this.metadata = { /* Filled in `initMetadata` method */ };
 
-			this.connectorLabel = connector.label;
-
 			this.initSongData();
+		}
+
+		getField(fieldName) {
+			if (!Song.BASE_FIELDS.includes(fieldName)) {
+				throw new TypeError(`Invalid field name: ${fieldName}`);
+			}
+
+			switch (fieldName) {
+				case 'artist':
+					return this.getArtist();
+
+				case 'track':
+					return this.getTrack();
+
+				case 'album':
+					return this.getAlbum();
+
+				case 'albumArtist':
+					return this.getAlbumArtist();
+			}
 		}
 
 		/**
@@ -205,24 +222,6 @@ define(() => {
 		}
 
 		/**
-		 * Get song data to send it to different context.
-		 *
-		 * @return {Object} Object contain song data
-		 */
-		getCloneableData() {
-			const fieldsToCopy = [
-				'parsed', 'processed', 'metadata', 'flags', 'connectorLabel',
-			];
-			const clonedSong = {};
-
-			for (const field of fieldsToCopy) {
-				clonedSong[field] = this[field];
-			}
-
-			return clonedSong;
-		}
-
-		/**
 		 * Set default song info (artist, track, etc).
 		 */
 		resetInfo() {
@@ -314,8 +313,6 @@ define(() => {
 				 * @type {Number}
 				 */
 				startTimestamp: Math.floor(Date.now() / 1000),
-
-				label: this.connectorLabel,
 			};
 		}
 

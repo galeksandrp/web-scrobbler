@@ -45,6 +45,19 @@ define((require) => {
 		/** Public methods. */
 
 		/**
+		 * Return a controller attached to the active tab.
+		 *
+		 * @return {Object} Controller instance
+		 */
+		getActiveController() {
+			if (this.activeTabId !== tabs.TAB_ID_NONE) {
+				return this.tabControllers[this.activeTabId];
+			}
+
+			return null;
+		}
+
+		/**
 		 * Called when a command is executed.
 		 *
 		 * @param  {String} command Command ID
@@ -69,50 +82,6 @@ define((require) => {
 					this.browserAction.setSongLoved(isLoved, ctrl.getCurrentSong());
 					break;
 				}
-			}
-		}
-
-		/**
-		 * Called when something sent message to the background script
-		 * via `browser.runtime.sendMessage` function.
-		 *
-		 * @param  {Number} tabId ID of a tab to which the message is addressed
-		 * @param  {String} type Message type
-		 * @param  {Object} data Object contains data sent in the message
-		 */
-		async processMessage(tabId, type, data) {
-			switch (type) {
-				case 'REQUEST_ACTIVE_TABID':
-					return this.activeTabId;
-			}
-
-			const ctrl = this.tabControllers[tabId];
-
-			if (!ctrl) {
-				console.warn(
-					`Attempted to send ${type} event to controller for tab ${tabId}`);
-				return;
-			}
-
-			switch (type) {
-				case 'REQUEST_GET_SONG':
-					return ctrl.getCurrentSong().getCloneableData();
-
-				case 'REQUEST_CORRECT_SONG':
-					ctrl.setUserSongData(data);
-					break;
-
-				case 'REQUEST_TOGGLE_LOVE':
-					await ctrl.toggleLove(data.isLoved);
-					return data.isLoved;
-
-				case 'REQUEST_SKIP_SONG':
-					ctrl.skipCurrentSong();
-					break;
-
-				case 'REQUEST_RESET_SONG':
-					ctrl.resetSongData();
-					break;
 			}
 		}
 
@@ -415,11 +384,10 @@ define((require) => {
 		 * @param  {Number} tabId ID of a tab attached to the controller
 		 */
 		async notifySongIsUpdated(ctrl, tabId) {
-			const data = ctrl.getCurrentSong().getCloneableData();
 			const type = 'EVENT_SONG_UPDATED';
 
 			try {
-				await runtime.sendMessage({ type, data, tabId });
+				await runtime.sendMessage({ type, tabId });
 			} catch (e) {
 				// Suppress errors
 			}
